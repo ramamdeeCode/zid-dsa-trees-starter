@@ -119,6 +119,22 @@ class BinarySearchTree {
 
     return values;
   }
+
+  dfsPreOrder(values = []) {
+    //Next process the current values
+    values.push(this.value);
+
+    //Fisrt, process the left node recursively
+    if (this.left) {
+      this.left.dfsPreOrder(values);
+    }
+
+    //finally, process the right node recursively
+    if (this.right) {
+      this.right.dfsPreOrder(values);
+    }
+    return values;
+  }
 }
 
 const bst = new BinarySearchTree(5);
