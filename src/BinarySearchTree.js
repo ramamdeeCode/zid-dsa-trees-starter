@@ -103,6 +103,22 @@ class BinarySearchTree {
       throw new Error("Key Not Found");
     }
   }
+
+  dfsInOrder(values = []) {
+    //Fisrt, process the left node recursively
+    if (this.left) {
+      values = this.left.dfsInOrder(values);
+    }
+    //Next process the current values
+    values.push(this.value);
+
+    //finally, process the right node recursively
+    if (this.right) {
+      values = this.right.dfsInOrder(values);
+    }
+
+    return values;
+  }
 }
 
 const bst = new BinarySearchTree(5);
