@@ -162,7 +162,7 @@ class BinarySearchTree {
 
     while (node) {
       values.push(node.value); // Add that value from the queue to an array
-      console.log(values);
+
       if (node.left) {
         queue.enqueue(node.left); // Add the left child to the queue
       }
@@ -172,6 +172,36 @@ class BinarySearchTree {
       node = queue.dequeue();
     }
     return values;
+  }
+
+  getHeight(currentHeight = 0) {
+    if (!this.left && !this.right) return currentHeight;
+    const newHeight = currentHeight + 1;
+    if (!this.left) return this.right.getHeight(newHeight);
+    if (!this.right) return this.left.getHeight(newHeight);
+    const leftHeight = this.left.getHeight(newHeight);
+    const rightHeight = this.right.getHeight(newHeight);
+    return Math.max(leftHeight, rightHeight);
+  }
+
+  isBST() {
+    const values = this.dfsInOrder();
+    for (let i = 1; i < values.length; i++) {
+      if (values[i] < values[i - 1]) {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  findKthLargestValue(k) {
+    const values = this.dfsInOrder();
+    const kthIndex = values.length - k;
+    if (kthIndex >= 0) {
+      return values[kthIndex];
+    } else {
+      console.error("k value exceeds the sixe of the BST.");
+    }
   }
 }
 
@@ -183,3 +213,8 @@ bst.insert(28, 28);
 bst.insert(18, 18);
 //console.log(bst.right.left.right);
 console.log(bst.bfs(bst));
+console.log(bst.getHeight());
+console.log(bst.isBST());
+console.log(bst.dfsInOrder());
+console.log(bst.findKthLargestValue(3));
+//console.log(bst.findKthLargestValue(4));
